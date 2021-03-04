@@ -11,6 +11,8 @@
   font-weight: 900;
   font-size: 3em;
   color: var(--main-text);
+  margin-bottom: .5em;
+  margin-top: 0;
 }
 
 .inputForm {
@@ -23,4 +25,24 @@
 
 .amountInput {
   width: 10%;
+}
+
+.incomeExpenseColumns {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  justify-content: space-around;
+}
+
+.green {
+  color: var(--green);
+}
+
+.red {
+  color: var(--red);
+}
+
+.columnTitle {
+  
 }
