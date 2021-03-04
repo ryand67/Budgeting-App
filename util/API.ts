@@ -6,5 +6,11 @@ export default {
         .then(res => {
           setTransactions(res.data);
         })
+      },
+
+      insertTransaction(entry, cb) {
+        axios.post('/api/transactions/create', entry).then(res => {
+            cb();
+        })
       }
 }

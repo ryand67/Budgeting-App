@@ -28,8 +28,10 @@ export default function Home() {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const income = amount > 0;
-    const entry = new Transaction(desc, amount, income);
-    console.log(entry);
+    const entry = new Transaction(desc, parseInt(amount), income);
+    API.insertTransaction(entry, API.getSetAllTransactions(setTransactions));
+    amountInput.value = 0;
+    descInput.value = '';
   }
 
   return (
@@ -43,8 +45,8 @@ export default function Home() {
       <h1 className={styles.title}>${totalBudget}</h1>
 
       <form className={styles.inputForm} onSubmit={(e) => handleFormSubmit(e)}>
-        <input required type="number" placeholder="Amount" name="amount" className={styles.amountInput} onChange={(e) => handleAmountChange(e)} />
-        <input required type="text" placeholder="Description" name="description" className={styles.descInput} onChange={(e) => handleDescChange(e)} />
+        <input id='amountInput' required type="number" placeholder="Amount" name="amount" className={styles.amountInput} onChange={(e) => handleAmountChange(e)} />
+        <input id='descInput' required type="text" placeholder="Description" name="description" className={styles.descInput} onChange={(e) => handleDescChange(e)} />
         <button type="submit" className={styles.addButton}>Add</button>
       </form>
 
