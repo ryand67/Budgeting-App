@@ -9,6 +9,7 @@ A simple desktop application to track your income and expenses. Not mobile respo
 * MongoDB
 * CSS
 * Axios
+* Vercel
 
 ## Deployed
 
