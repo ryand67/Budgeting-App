@@ -32,7 +32,7 @@ export default function Home() {
     API.insertTransaction(entry).then(() => {
       API.getSetAllTransactions(setTransactions, setTotalBudget);
     })
-    amountInput.value = 0;
+    amountInput.value = null;
     descInput.value = '';
   }
 
@@ -40,6 +40,7 @@ export default function Home() {
     <div className={styles.container}>
       <Head>
         <title>Budgeting App</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous"></link>
         <link rel="icon" href="https://www.pinclipart.com/picdir/big/18-185386_finance-clipart-accounting-journal-valuation-icon-png-download.png" />
       </Head>
 
@@ -48,7 +49,7 @@ export default function Home() {
 
       <form className={styles.inputForm} onSubmit={(e) => handleFormSubmit(e)}>
         <input id='amountInput' required type="number" placeholder="Amount" name="amount" className={styles.amountInput} onChange={(e) => handleAmountChange(e)} />
-        <input id='descInput' required type="text" placeholder="Description" name="description" className={styles.descInput} onChange={(e) => handleDescChange(e)} />
+        <input id='descInput' required maxLength={18} type="text" placeholder="Description" name="description" className={styles.descInput} onChange={(e) => handleDescChange(e)} />
         <button type="submit" className={styles.addButton}>Add</button>
       </form>
 
@@ -56,14 +57,14 @@ export default function Home() {
         <div className={styles.incomeColumn}>
           <h1 className={`${styles.columnTitle} ${styles.green}`}>Income</h1>
           {transactions.filter(item => item.income).map((item, i) => {
-            return <BudgetItemCard key={i} id={item._id} amount={item.amount} desc={item.description} income={true} />
+            return <BudgetItemCard key={i} id={item._id} amount={item.amount} desc={item.description} income={true} setTotal={setTotalBudget} setTransactions={setTransactions} />
           })}
         </div>
 
         <div className={styles.expenseColumn}>
           <h1 className={`${styles.columnTitle} ${styles.red}`}>Expenses</h1>
           {transactions.filter(item => !item.income).map((item, i) => {
-            return <BudgetItemCard key={i} id={item._id} amount={item.amount} desc={item.description} income={false} />
+            return <BudgetItemCard key={i} id={item._id} amount={item.amount} desc={item.description} income={false} setTotal={setTotalBudget} setTransactions={setTransactions} />
           })}
         </div>
       </div>

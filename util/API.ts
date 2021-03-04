@@ -9,6 +9,7 @@ export default {
         holder += item.amount;
       });
       setTotal(holder);
+      return;
     });
   },
 
@@ -17,4 +18,11 @@ export default {
       return res.data;
     });
   },
+
+  async deleteTransaction(id) {
+      axios.delete(`/api/transactions/delete?id=${id}`)
+        .then(res => {
+            console.log(res);
+        })
+  }
 };

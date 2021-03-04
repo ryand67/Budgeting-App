@@ -5,9 +5,7 @@ export default async (req, res) => {
     try {
         const result = await db.collection('transactions').insertOne(req.body)
         res.status(200);
-        res.end();
     } catch (error) {
         res.json(error);
-        res.end();
     }
 }

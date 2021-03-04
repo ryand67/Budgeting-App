@@ -8,7 +8,31 @@
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: .5em;
+    margin-bottom: 1em;
+    position: relative;
+    cursor: pointer;
+}
+
+.wrapper:hover {
+    background-color: rgb(214, 214, 214);
+}
+
+.wrapper:hover .icon {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.icon {
+    opacity: 0;
+    transform: scale(0);
+    color: var(--red);
+    cursor: pointer;
+    position: absolute;
+    font-size: 2em;
+    top: -17px;
+    right: -17px;
+    transition: .3s ease-out;
+    filter: brightness(110%)
 }
 
 .text {
