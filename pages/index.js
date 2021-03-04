@@ -14,7 +14,7 @@ export default function Home() {
   const [desc, setDesc] = useState('');
 
   useEffect(() => {
-    API.getSetAllTransactions(setTransactions);
+    API.getSetAllTransactions(setTransactions, setTotalBudget);
   }, [])
 
   const handleAmountChange = (e) => {
@@ -29,7 +29,9 @@ export default function Home() {
     e.preventDefault();
     const income = amount > 0;
     const entry = new Transaction(desc, parseInt(amount), income);
-    API.insertTransaction(entry, API.getSetAllTransactions(setTransactions));
+    API.insertTransaction(entry).then(() => {
+      API.getSetAllTransactions(setTransactions, setTotalBudget);
+    })
     amountInput.value = 0;
     descInput.value = '';
   }
@@ -38,7 +40,7 @@ export default function Home() {
     <div className={styles.container}>
       <Head>
         <title>Budgeting App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="https://www.pinclipart.com/picdir/big/18-185386_finance-clipart-accounting-journal-valuation-icon-png-download.png" />
       </Head>
 
       <h1 className={styles.title}>Budgeting App</h1>
@@ -53,12 +55,16 @@ export default function Home() {
       <div className={styles.incomeExpenseColumns}>
         <div className={styles.incomeColumn}>
           <h1 className={`${styles.columnTitle} ${styles.green}`}>Income</h1>
-          <BudgetItemCard amount={10} desc={'asdfa'} income={true}/>
+          {transactions.filter(item => item.income).map((item, i) => {
+            return <BudgetItemCard key={i} id={item._id} amount={item.amount} desc={item.description} income={true} />
+          })}
         </div>
 
         <div className={styles.expenseColumn}>
           <h1 className={`${styles.columnTitle} ${styles.red}`}>Expenses</h1>
-          <BudgetItemCard amount={10} desc={'asdfa'} income={false}/>
+          {transactions.filter(item => !item.income).map((item, i) => {
+            return <BudgetItemCard key={i} id={item._id} amount={item.amount} desc={item.description} income={false} />
+          })}
         </div>
       </div>
     </div>

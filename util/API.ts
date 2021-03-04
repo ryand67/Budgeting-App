@@ -1,16 +1,20 @@
-import axios from 'axios';
+import axios from "axios";
 
 export default {
-     getSetAllTransactions(setTransactions)  {
-        axios.get('/api/transactions/getAll')
-        .then(res => {
-          setTransactions(res.data);
-        })
-      },
+  async getSetAllTransactions(setTransactions, setTotal) {
+    axios.get("/api/transactions/getAll").then((res) => {
+      setTransactions(res.data);
+      let holder = 0;
+      res.data.map((item) => {
+        holder += item.amount;
+      });
+      setTotal(holder);
+    });
+  },
 
-      insertTransaction(entry, cb) {
-        axios.post('/api/transactions/create', entry).then(res => {
-            cb();
-        })
-      }
-}
+  async insertTransaction(entry) {
+    axios.post("/api/transactions/create", entry).then((res) => {
+      return res.data;
+    });
+  },
+};
